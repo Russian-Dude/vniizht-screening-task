@@ -19,7 +19,7 @@ class Tokenizer(val operators: List<Operator>, val functions: List<Function>) {
                 if (string.toDoubleOrNull() != null) NumberToken(string.toDouble())
                 else if (string == "(") OpenParenthesis
                 else if (string == ")") ClosingParenthesis
-                else if (string == "-" && (index == 0 || result[index - 1] is Operator)) UnaryMinus
+                else if (string == "-" && (index == 0 || (result[index - 1] is Operator || result[index - 1] is OpenParenthesis))) UnaryMinus
                 else operators.find { it.operator == string }
                     ?: functions.find { it.declaration == string }
                     ?: throw UnknownOperatorException(string)
